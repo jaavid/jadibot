@@ -56,8 +56,8 @@ switch ($text) {
 			$rss 		= Feed::loadRss($url);
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
-			$lastlink 	=  $lastitem->link;
-			$lasttitle 	=  $lastitem->title;
+			$lastlink 	= $lastitem->link;
+			$lasttitle 	= $lastitem->title;
 			$message 	= $lasttitle."\n".$lastlink; 
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
 			$response 	= $client -> sendChatAction($params);
@@ -68,13 +68,22 @@ switch ($text) {
 			echo $e -> getMessage();
 		}
 		break;
-	default :
+	case '/help' :
+	case '/help@jadibot' :
+	case '/help@JadiBot' :
 		try {
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
 			$response 	= $client -> sendChatAction($params);
 			$defaulttext = "شما میتوانید برای دریافت  آخرین مطلب وبلاگ جادی از فرمان \n /lastpost \n و برای دریافت آخرین پادکست از \n /podcast \n  استفاده کنید.";
 			$params 	= array('chat_id' => $chatid, 'text' => $defaulttext, 'reply_to_message_id' => $messageid);
 			$response 	= $client -> sendMessage($params);
+			$response 	= $client -> forwardMessage(array('chat_id' => $agroup, 'message_id' => $messageid, 'from_chat_id' => $chatid));
+		} catch (\Zelenin\Telegram\Bot\NotOkException $e) {
+			echo $e -> getMessage();
+		}
+		break;
+	default :
+		try {
 			$response 	= $client -> forwardMessage(array('chat_id' => $agroup, 'message_id' => $messageid, 'from_chat_id' => $chatid));
 		} catch (\Zelenin\Telegram\Bot\NotOkException $e) {
 			echo $e -> getMessage();
