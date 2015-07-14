@@ -25,14 +25,14 @@ $db 		= new \MysqliDb($dbconf);
 $dbdata 	= array('ID' => '', 'Uid' => $updateid, 'Mid' => $messageid, 'Fid' => $senderid, 'Cid' => $chatid, 'Date' => $zaman, 'Text' => $text, 'Json' => $jsondata);
 $id 		= $db -> insert('jadi_recived', $dbdata);
 
-$mp3 		= "http://cdn.tori.ir/radiogeek.mp3";
+$mp3 		= "http://jadi.net/radiogeek.mp3";
 switch ($text) {
 	case '/podcast' :
 	case '/podcast@jadibot' :
 	case '/podcast@JadiBot' :
 		try {
-			$url 		= "http://cdn.tori.ir/tag/podcast/feed/";
-			$rss 		= Feed::loadRss($url);
+			$url 		= "http://jadi.net/tag/podcast/feed/";
+			$rss 		= Feed::loadRss($url); 
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
 			$lastlink 	= $lastitem->link;
@@ -52,7 +52,7 @@ switch ($text) {
 	case '/lastpost@jadibot' :
 	case '/lastpost@JadiBot' :
 		try {
-			$url 		= "http://cdn.tori.ir/feed/";
+			$url 		= "http://jadi.net/feed/";
 			$rss 		= Feed::loadRss($url);
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
