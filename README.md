@@ -6,4 +6,3 @@ Telegram Bot for jadi.net
 - [ ] Unsubscribe Command
 - [ ] Get Old Podcasts Command
 - [ ] Get Old Posts Command
-- [ ] Get Old Posts Command
