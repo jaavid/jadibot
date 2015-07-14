@@ -3,7 +3,7 @@
 date_default_timezone_set('America/New_York');
 
 //Start Coding ^_^
-require 'robogame/vendor/autoload.php';
+require 'vendor/autoload.php';
 require 'config.php';
 
 //Recive Data
