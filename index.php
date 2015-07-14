@@ -89,4 +89,8 @@ switch ($text) {
 			echo $e -> getMessage();
 		}
 		break;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 97c2bbe8372c4b1d166900c8168862cbe32febf2
