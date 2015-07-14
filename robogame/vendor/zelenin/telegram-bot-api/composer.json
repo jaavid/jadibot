@@ -1,0 +1,30 @@
+{
+    "name": "zelenin/telegram-bot-api",
+    "description": "Telegram Bot API Client",
+    "keywords": [
+        "telegram",
+        "bot",
+        "api"
+    ],
+    "homepage": "https://github.com/zelenin/telegram-bot-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleksandr Zelenin",
+            "email": "aleksandr@zelenin.me",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/zelenin/telegram-bot-api/issues",
+        "source": "https://github.com/zelenin/telegram-bot-api"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "~6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zelenin\\Telegram\\Bot\\": ""
+        }
+    }
+}
