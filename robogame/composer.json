@@ -1,7 +1,0 @@
-{
-    "require": {
-        "zelenin/telegram-bot-api": "~0.0",
-        "joshcam/mysqli-database-class": "dev-master",
-        "dg/rss-php": "^1.2"
-    }
-}
