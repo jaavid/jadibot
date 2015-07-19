@@ -18,7 +18,6 @@ $messageid 	= $data['message']['message_id'];
 $updateid 	= $data['update_id'];
 $senderid 	= $data['message']['from']['id'];
 $zaman 		= $data['message']['date'];
-$messageid 	= $data['message']['message_id'];
 // Initialize Database
 $db 		= new \MysqliDb($dbconf);
 // Insert Recived Data To Database
@@ -32,6 +31,8 @@ switch ($text) {
 	case '/podcast@JadiBot' :
 		try {
 			$url 		= "http://jadi.net/tag/podcast/feed/";
+			Feed::$cacheDir 	= __DIR__ . '/cache';
+			Feed::$cacheExpire 	= '5 hours';
 			$rss 		= Feed::loadRss($url); 
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
@@ -40,11 +41,12 @@ switch ($text) {
 			$lasttitle 	= $lastitem->title;
 			$message 	= $lasttitle."\n".$lastlink; 
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
-			$response = $client -> sendChatAction($params);
-			$response = $client -> sendMessage(array('chat_id' => $chatid, 'text' => $message, 'reply_to_message_id' => $messageid));						
-			$response = $client -> sendAudio(array('chat_id' => $chatid, 'audio' => fopen($mp3, 'r'), 'reply_to_message_id' => $messageid));			
-			#2.Send Report To Group
-			$response = $client -> forwardMessage(array('chat_id' => $agroup, 'message_id' => $messageid, 'from_chat_id' => $chatid));
+			$response 	= $client -> sendChatAction($params);
+			$response 	= $client -> sendMessage(array('chat_id' => $chatid, 'text' => $message, 'reply_to_message_id' => $messageid));
+			$params 	= array('chat_id' => $chatid, 'action' => 'upload_audio');
+			$response 	= $client -> sendChatAction($params);						
+			$response 	= $client -> sendAudio(array('chat_id' => $chatid, 'audio' => fopen($mp3, 'r'), 'reply_to_message_id' => $messageid));			
+			$response 	= $client -> forwardMessage(array('chat_id' => $agroup, 'message_id' => $messageid, 'from_chat_id' => $chatid));
 		} catch (\Zelenin\Telegram\Bot\NotOkException $e) {
 			echo $e -> getMessage();
 		}
@@ -54,7 +56,9 @@ switch ($text) {
 	case '/lastpost@JadiBot' :
 		try {
 			$url 		= "http://jadi.net/feed/";
-			$rss 		= Feed::loadRss($url);
+			Feed::$cacheDir 	= __DIR__ . '/cache';
+			Feed::$cacheExpire 	= '5 hours';
+			$rss 		= Feed::loadRss($url);			
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
 			$lastlink 	= $lastitem->link;
@@ -64,7 +68,6 @@ switch ($text) {
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
 			$response 	= $client -> sendChatAction($params);
 			$response 	= $client -> sendMessage(array('chat_id' => $chatid, 'text' => $message, 'reply_to_message_id' => $messageid));			
-			#2.Send Report To Group
 			$response 	= $client -> forwardMessage(array('chat_id' => $agroup, 'message_id' => $messageid, 'from_chat_id' => $chatid));
 		} catch (\Zelenin\Telegram\Bot\NotOkException $e) {
 			echo $e -> getMessage();
