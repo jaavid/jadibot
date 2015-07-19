@@ -10,6 +10,7 @@ Telegram Bot for jadi.net
 
 - [x] Remove Default Message
 - [x] Add /help Command
+- [ ] Documentation
 - [ ] Unsubscribe Command
 - [ ] Old Posts Command
 - [ ] Old Podcasts Command
