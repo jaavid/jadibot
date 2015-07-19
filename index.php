@@ -36,6 +36,7 @@ switch ($text) {
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
 			$lastlink 	= $lastitem->link;
+			$lastlink 	= preg_replace("/^http:/i", "https:", $lastlink);
 			$lasttitle 	= $lastitem->title;
 			$message 	= $lasttitle."\n".$lastlink; 
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
@@ -57,6 +58,7 @@ switch ($text) {
 			$items 		= $rss->item;
 			$lastitem 	= $items[0];
 			$lastlink 	= $lastitem->link;
+			$lastlink 	= preg_replace("/^http:/i", "https:", $lastlink);
 			$lasttitle 	= $lastitem->title;
 			$message 	= $lasttitle."\n".$lastlink; 
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
