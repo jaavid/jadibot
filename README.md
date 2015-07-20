@@ -3,8 +3,9 @@
 ![Release](https://img.shields.io/github/release/jaavid/jadibot.svg)
 
 
+
 # jadibot
-Telegram Bot for jadi.net
+Telegram Bot for jadi.net. This is a single purpose program which lets you interact with [www.Jadi.net](http://jadi.net); although you can modify it to use other weblogs or even sites. 
 
 ### To do
 
@@ -14,3 +15,4 @@ Telegram Bot for jadi.net
 - [ ] Unsubscribe Command
 - [ ] Old Posts Command
 - [ ] Old Podcasts Command
+- [ ] Random Post Command (/random)
