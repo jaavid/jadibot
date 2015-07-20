@@ -24,4 +24,4 @@ These commands are available:
 - [ ] Unsubscribe Command
 - [ ] Old Posts Command
 - [ ] Old Podcasts Command
-- [ ] Random Post Command (/random)
+- [x] Random Post Command (/random)
