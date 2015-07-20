@@ -26,20 +26,54 @@ $id 		= $db -> insert('jadi_recived', $dbdata);
 
 $mp3 		= "http://jadi.net/radiogeek.mp3";
 switch ($text) {
+	case '/random' :
+	case '/random@jadibot' :
+	case '/randomt@JadiBot' :
+		try {
+			$randomAPI 	= 'http://jadi.net/api/posts?filter[orderby]=rand&filter[posts_per_page]=1';
+			$randoms 	= json_decode(file_get_contents($randomAPI));			
+			$random		= $randoms[0];
+			$lastlink 	= $random->link;
+			$lastlink 	= preg_replace("/^http:/i", "https:", $lastlink);
+			$lasttitle 	= $random->title;
+			$date 		= "\n📅".$random->date_gmt;
+			$tags 		= "\n";	
+			foreach ($random->terms->post_tag as $tag) {
+				$tags = $tags."#".$tag->name." ";
+			}
+			$cats 		= "\n📂";	
+			foreach ($random->terms->category as $cat) {
+				$cats = $cats.$cat->name." ";
+			}
+			$message 	= $lasttitle.$tags.$cats.$date."\n\n".$lastlink;
+			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
+			$response 	= $client -> sendChatAction($params);
+			$response 	= $client -> sendMessage(array('chat_id' => $chatid, 'text' => $message, 'reply_to_message_id' => $messageid));
+			$response 	= $client -> forwardMessage(array('chat_id' => $agroup, 'message_id' => $messageid, 'from_chat_id' => $chatid));
+		} catch (\Zelenin\Telegram\Bot\NotOkException $e) {
+			echo $e -> getMessage();
+		}
+		break;
 	case '/podcast' :
 	case '/podcast@jadibot' :
 	case '/podcast@JadiBot' :
 		try {
-			$url 		= "http://jadi.net/tag/podcast/feed/";
-			Feed::$cacheDir 	= __DIR__ . '/cache';
-			Feed::$cacheExpire 	= '5 hours';
-			$rss 		= Feed::loadRss($url); 
-			$items 		= $rss->item;
-			$lastitem 	= $items[0];
-			$lastlink 	= $lastitem->link;
+			$podcastAPI = 'http://jadi.net/api/posts?filter[tag]=podcast&filter[posts_per_page]=1';
+			$podcasts 	= json_decode(file_get_contents($podcastAPI));			
+			$podcast 	= $podcasts[0];
+			$lastlink 	= $podcast->link;
 			$lastlink 	= preg_replace("/^http:/i", "https:", $lastlink);
-			$lasttitle 	= $lastitem->title;
-			$message 	= $lasttitle."\n".$lastlink; 
+			$lasttitle 	= $podcast->title;
+			$date 		= "\n📅".$podcast->date_gmt;
+			$tags 		= "\n";	
+			foreach ($podcast->terms->post_tag as $tag) {
+				$tags = $tags."#".$tag->name." ";			
+			}
+			$cats 		= "\n📂";	
+			foreach ($podcast->terms->category as $cat) {
+				$cats = $cats.$cat->name." ";					
+			}
+			$message 	= $lasttitle.$tags.$cats.$date."\n\n".$lastlink;
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
 			$response 	= $client -> sendChatAction($params);
 			$response 	= $client -> sendMessage(array('chat_id' => $chatid, 'text' => $message, 'reply_to_message_id' => $messageid));
@@ -64,7 +98,8 @@ switch ($text) {
 			$lastlink 	= $lastitem->link;
 			$lastlink 	= preg_replace("/^http:/i", "https:", $lastlink);
 			$lasttitle 	= $lastitem->title;
-			$message 	= $lasttitle."\n".$lastlink; 
+			$comments 	= $lastitem->{'slash:comments'};
+			$message 	= $lasttitle."\n 💬".$comments."\n".$lastlink; 
 			$params 	= array('chat_id' => $chatid, 'action' => 'typing');
 			$response 	= $client -> sendChatAction($params);
 			$response 	= $client -> sendMessage(array('chat_id' => $chatid, 'text' => $message, 'reply_to_message_id' => $messageid));			
