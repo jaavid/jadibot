@@ -8,7 +8,7 @@
 Telegram Bot for jadi.net. This is a single purpose program which lets you interact with [www.Jadi.net](http://jadi.net) using Telegram messenger; although you can modify it to use other weblogs or even sites. 
 
 ### Usage
-If you want to use JadiBot, just head to [http://www.telegram.me/jadibot](http://www.telegram.me/jadibot) and add the bot. As any other bot you have to start with ````/start```` command and use ````/help```` to see the list of commands.
+If you want to use JadiBot, just head to [https://t.me/jadibot](https://t.me/jadibot) and add the bot. As any other bot you have to start with ````/start```` command and use ````/help```` to see the list of commands.
 
 These commands are available:
 
