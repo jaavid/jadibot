@@ -1,8 +1,7 @@
 <?php
+
 // Load composer
 require_once __DIR__ . '/vendor/autoload.php';
-
-// Load Config
 require_once __DIR__ . '/config.php';
 
 // Define all paths for your custom commands in this array (leave as empty array if not used)
