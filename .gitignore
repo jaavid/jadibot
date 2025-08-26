@@ -1,4 +1,18 @@
-*~
-vendor
+# Python
+__pycache__/
+*.py[cod]
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# PHP/Composer
+vendor/
 composer.lock
 config.php
